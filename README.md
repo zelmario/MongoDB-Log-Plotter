@@ -11,7 +11,7 @@ MongoDB-Log-Plotter is a script that analyzes MongoDB logs (version 4.4 or above
 1. Clone the repository: `git clone https://github.com/yourusername/MongoDB-Log-Plotter.git`
 2. Navigate to the project directory: `cd MongoDB-Log-Plotter`
 3. Install dependencies: `pip install -r requirements.txt`
-4. Run the script: `python your_script.py /path/to/log/file.log`
+4. Run the script: `python MongoDB_log_plotter.py /path/to/log/file.log`
 
 ## Usage
 Run the script with the path to the MongoDB log file as a command-line argument. 
@@ -31,11 +31,10 @@ Also, if you click on a data point, the command used is displayed
 MongoDB-Log-Plotter is designed to work with MongoDB version 4.4 or above.
 
 ## Features
-Plot slow queries, connections, and errors from MongoDB logs
-Visualize data using Dash and Plotly
-Display additional information about the MongoDB environment
-Results
-Dashboard
+- Plot slow queries, connections, and errors from MongoDB logs
+- Visualize data using Dash and Plotly
+- Display additional information about the MongoDB environment
+
 
 ## License
 This project is licensed under the GNU License - see the LICENSE file for details.
