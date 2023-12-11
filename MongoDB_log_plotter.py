@@ -318,9 +318,8 @@ app.layout = html.Div([
 @app.callback(
     Output('query-display', 'children'),
     Input('slow-queries-scatter', 'clickData'),
-    Input('information-scatter', 'clickData')  # Adjust the ID here
 )
-def display_query_slow_queries(clickData_slow, clickData_info):
+def display_query_slow_queries(clickData_slow):
     if clickData_slow is not None and clickData_slow['points']:
         point_data = clickData_slow['points'][0]
         timestamp = point_data['x']
@@ -329,11 +328,5 @@ def display_query_slow_queries(clickData_slow, clickData_info):
         command = point_data['customdata'][1] if len(point_data['customdata']) > 1 else 'No command available'
         return f"Timestamp: {timestamp}\nDuration: {duration} ms\nNamespace: {namespace}\nCommand: {command}"
     
-    elif clickData_info is not None and clickData_info['points']:
-        point_data_info = clickData_info['points'][0]
-        timestamp_info = point_data_info['x']
-        info_msg = point_data_info['y']
-        command_info = point_data_info['customdata'][0] if 'customdata' in point_data_info else 'No command available'
-        return f"Timestamp: {timestamp_info}\nInformation Message: {info_msg}\nCommand: {command_info}"
     
 app.run_server(debug=False)
