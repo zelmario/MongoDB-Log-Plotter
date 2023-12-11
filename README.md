@@ -40,6 +40,6 @@ MongoDB-Log-Plotter is designed to work with MongoDB version 4.4 or above.
 This project is licensed under the GNU License - see the LICENSE file for details.
 
 ## Contributing
-Contributions are welcome! Since I'm not a programmer, your feedback is valuable. If you are a programmer and notice any mistakes or want to enhance the script, please feel free to fork the repository, make corrections, and submit a pull request.
+Contributions are welcome! Since I'm not a programmer, your feedback is valuable. If you are a programmer and notice any mistakes or want to enhance the script, please feel free to contribute! :)
 
 
