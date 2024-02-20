@@ -261,20 +261,17 @@ app.layout = html.Div([
 
     # Pre tag for displaying queries
     html.Pre(id='query-display', style={'textAlign': 'left', 'fontSize': 13}),
-    
-    # Section for slow queries
-    html.Div([
-        
 
+    # Section for slow queries and additional information
+    html.Div([
         # Two-column layout
         html.Div([
-            # First column for the DataTable
-            
+            # First column for the DataTable (Slow Queries)
             html.Div([
                 html.Hr(),
                 html.H3("Slow queries", style={'margin-top': '20px'}),
                 dash_table.DataTable(
-                    id='aggregated-table',
+                    id='aggregated-slow-queries-table',
                     columns=[
                         {'name': col, 'id': col} for col in df_slow_queries.groupby('Namespace')
                                                         .agg({'Command': 'size', 'Duration (ms)': 'mean'})
@@ -296,10 +293,12 @@ app.layout = html.Div([
                 ),
             ], style={'width': '50%', 'display': 'inline-block', 'vertical-align': 'top'}),
 
-            # Second column for additional information
+            # Second column for additional information and errors
             html.Div([
                 html.Hr(),
                 html.H3("Additional Information", style={'margin-top': '20px'}),
+
+                # Table for Additional Information
                 html.Table([
                     html.Tr([html.Td("MongoDB Version:"), html.Td(mongodb_info['mongodb_version'])]),
                     html.Tr([html.Td("Node Name:"), html.Td(mongodb_info['node_name'])]),
@@ -308,8 +307,31 @@ app.layout = html.Div([
                     html.Tr([html.Td("Slow queries:"), html.Td(len(df_slow_queries.index))]),
                     html.Tr([html.Td("Slow queries plotted:"), html.Td(round(len(df_slow_queries_sample.index)))]),
                 ]),
+
+                # Table for Aggregated Errors
+                html.Hr(),
+                html.H3("Error and information messages", style={'margin-top': '20px'}),
+                dash_table.DataTable(
+                    id='aggregated-errors-table',
+                    columns=[
+                        {'name': col, 'id': col} for col in df_information.groupby('Information Message')
+                                                        .agg({'Command': 'size'})
+                                                        .rename(columns={'Command': 'count'})
+                                                        .sort_values(['count'], ascending=False)
+                                                        .reset_index()
+                                                        .columns
+                    ],
+                    data=df_information.groupby('Information Message')
+                                        .agg({'Command': 'size'})
+                                        .rename(columns={'Command': 'count'})
+                                        .sort_values(['count'], ascending=False)
+                                        .reset_index()
+                                        .to_dict('records'),
+                    style_table={'width': '100%'},
+                    style_cell={'maxWidth': 0},
+                ),
             ], style={'width': '40%', 'display': 'inline-block', 'vertical-align': 'top', 'marginLeft': '20px'}),
-            
+
         ]),
     ]),
 ])
